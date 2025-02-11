@@ -24,7 +24,7 @@ export const Main = (props) => {
 
   const loadRate = () => {
     // console.log(`#8y3 App/loadRate started`);
-    fetch(`${API_PATH}/rates?reqid=sse`, {
+    fetch(`${API_PATH}/rates?reqid=ratebulk2`, {
       method: "get",
       mode: "cors",
       headers: {
