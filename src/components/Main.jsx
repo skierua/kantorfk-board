@@ -7,9 +7,10 @@ import { Advert } from "./Advert";
 import { BrdHeader } from "./BrdHeader";
 import { BrdRate } from "./BrdRate";
 import { BrdOffer } from "./BrdOffer";
-import { API_PATH, SSE_PATH } from "../path";
+import { API_PATH } from "../path";
 
 const interval = 9; // reload interval sec
+const bulkKnt = "BULK";
 
 export const Main = (props) => {
   const { crntuser, ferr } = props;
@@ -24,7 +25,7 @@ export const Main = (props) => {
 
   const loadRate = () => {
     // console.log(`#8y3 App/loadRate started`);
-    fetch(`${API_PATH}/rates?reqid=sse`, {
+    fetch(`${API_PATH}/rates?reqid=sse2`, {
       method: "get",
       mode: "cors",
       headers: {
@@ -104,10 +105,10 @@ export const Main = (props) => {
         <BrdHeader />
         <BrdRate
           title="Курси валют"
-          data={rates.filter((v) => v.shop == crntuser.term)}
+          data={rates}
+          // data={rates.filter((v) => v.shop == crntuser.term)}
           shop={crntuser.term}
-          alwaysShow={true}
-          delay="150"
+          // delay="150"
         />
         <BrdOffer data={offers.filter((v) => v.shop == crntuser.term)} />
         <Advert />
