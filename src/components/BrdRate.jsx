@@ -84,13 +84,13 @@ export const BrdRate = (props) => {
 };
 
 const CurAmntCell = (props) => {
-  const { amnt, color, bgcolor, ...other } = props;
+  const { amnt, color, fontWeight, ...other } = props;
   return (
-    <TableCell align="center" bgcolor={bgcolor}>
+    <TableCell align="center" {...other}>
       <Typography
         fontSize={{ xs: "1rem", md: "3vmin" }}
         color={color}
-        fontWeight={other.fontWeight}
+        fontWeight={fontWeight}
       >
         {Number(amnt) !== 0 ? Number(amnt).toPrecision(4) : ""}
       </Typography>
@@ -143,14 +143,16 @@ const Row = (props) => {
       <CurAmntCell
         amnt={itm.bid}
         color={colorset[2]}
-        bgcolor={colorset[0]}
         fontWeight={bulk ? "700" : "400"}
+        bgcolor={colorset[0]}
+        width={"27%"}
       />
       <CurAmntCell
         amnt={itm.ask}
         color={colorset[2]}
-        bgcolor={colorset[0]}
         fontWeight={bulk ? "700" : "400"}
+        bgcolor={colorset[0]}
+        width={"27%"}
       />
     </TableRow>
   );
