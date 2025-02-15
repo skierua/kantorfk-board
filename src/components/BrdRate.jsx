@@ -176,7 +176,7 @@ const TblHead = (props) => {
       <TableRow>
         <TableCell align="center" bgcolor="white" padding={"none"}>
           <Typography color={grey[500]} fontSize="0.9rem">
-            валюта
+            назва
           </Typography>
         </TableCell>
         <TableCell
