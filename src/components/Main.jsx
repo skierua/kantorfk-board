@@ -104,7 +104,6 @@ export const Main = (props) => {
       <Stack width={{ xs: "100%" }} gap={1} alignItems={"center"}>
         <BrdHeader />
         <BrdRate
-          title="Курси валют"
           data={rates}
           // data={rates.filter((v) => v.shop == crntuser.term)}
           shop={crntuser.term}
