@@ -20,7 +20,7 @@ const colorset = ["#f2f2f2", "#57ba98", grey[800]];
  * @returns
  */
 export const BrdRate = (props) => {
-  const { data, shop, footer, ...other } = props;
+  const { data, shop, ...other } = props;
   // console.log(
   //   data.filter((v) => v.shop == bulkKnt && v.domestic == "2" && v.prc === "")
   // );
@@ -34,50 +34,210 @@ export const BrdRate = (props) => {
     <Box {...other}>
       <Stack gap={2} width="100%">
         <Stack gap={2} direction={"row"}>
-          <TblTbl
-            data={data.filter(
-              (v) => v.shop === shop && v.domestic === "2" && v.prc === ""
-            )}
-            bulk={false}
-          />
-          <TblTbl
+          <Stack gap={2}>
+            <TableContainer component={Paper}>
+              <Table size="small" aria-label="a dense table">
+                <TableHead>
+                  <TblTitle
+                    title={"РОЗДРІБ"}
+                    bgcolor={colorset[0]}
+                    fw={"400"}
+                  />
+                  <TblSubTitle />
+                </TableHead>
+                <TableBody>
+                  {data
+                    .filter(
+                      (v) => v.shop == shop && v.domestic == "2" && v.prc === ""
+                    )
+                    .map((v) => {
+                      return (
+                        (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                          <Row
+                            id={v.atclcode + "-" + v.scode}
+                            key={v.atclcode + "-" + v.scode}
+                            itm={v}
+                            showSub={false}
+                            fw={"400"}
+                          />
+                        )
+                      );
+                    })}
+                </TableBody>
+                <TableHead>
+                  <TblTitle
+                    title={"ІНШІ ВАЛЮТИ, купівля"}
+                    bgcolor={colorset[0]}
+                    fw={"400"}
+                  />
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={3}>
+                      <Stack
+                        gap={2}
+                        direction={"row"}
+                        maxWidth={"40vmin"}
+                        useFlexGap
+                        sx={{ flexWrap: "wrap" }}
+                      >
+                        {data
+                          .filter(
+                            (v) =>
+                              v.shop == shop &&
+                              v.domestic == "4" &&
+                              v.prc === ""
+                          )
+                          .map((v) => {
+                            return (
+                              (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                                <Box
+                                  key={v.atclcode + "-" + v.scode}
+                                  display={"flex"}
+                                  // direction={"row"}
+                                  // gap={0.75}
+                                  alignItems={"center"}
+                                >
+                                  <Avatar
+                                    src={`./flag/${v.atclcode}.svg`}
+                                    sx={{
+                                      width: { xs: "18px", sm: "3vmin" },
+                                      height: { xs: "18px", sm: "3vmin" },
+                                      border: "solid lightgrey 1px",
+                                    }}
+                                  />
+                                  {/* <Typography variant="caption" gutterBottom>
+                              &nbsp;{v.cqty === "1" ? "" : v.cqty}
+                            </Typography> */}
+                                  <Typography
+                                    variant="button"
+                                    fontSize={{ xs: "0.5rem", md: "2vmin" }}
+                                  >
+                                    &nbsp;{v.chid}&nbsp;
+                                    {Number(v.bid).toPrecision(4)}
+                                  </Typography>
+                                </Box>
+                              )
+                            );
+                          })}
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/* <TblTbl
+              data={data.filter(
+                (v) => v.shop === shop && v.domestic === "2" && v.prc === ""
+              )}
+              bulk={false}
+            /> */}
+            {/*
+            <Paper elevation={6} sx={{ padding: "0.3rem" }}>
+              <Stack gap={0.5}>
+                <Box
+                  bgcolor={colorset[0]}
+                  // color={"info.contrastText"}
+                  padding={"5px 10px"}
+                >
+                  <Typography fontSize="0.9rem">РОЗДРІБ, купівля</Typography>
+                </Box>
+                <CurOther
+                  dataset={data.filter(
+                    (v) => v.shop === shop && v.domestic === "4" && v.prc === ""
+                  )}
+                />
+              </Stack>
+            </Paper>
+            */}
+          </Stack>
+          <TableContainer component={Paper}>
+            <Table size="small" aria-label="a dense table">
+              <TableHead>
+                <TblTitle title={"ГУРТ"} bgcolor={colorset[1]} fw={"700"} />
+                <TblSubTitle />
+              </TableHead>
+              <TableBody>
+                {data
+                  .filter(
+                    (v) =>
+                      v.shop == bulkKnt && v.domestic == "2" && v.prc === ""
+                  )
+                  .map((v) => {
+                    return (
+                      (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                        <Row
+                          id={v.atclcode + "-" + v.scode}
+                          key={v.atclcode + "-" + v.scode}
+                          itm={v}
+                          showSub={true}
+                          fw={"700"}
+                        />
+                      )
+                    );
+                  })}
+              </TableBody>
+              <TableHead>
+                <TblTitle
+                  title={"КОНВЕРТАЦІЯ"}
+                  bgcolor={colorset[1]}
+                  fw={"700"}
+                />
+              </TableHead>
+              <TableBody>
+                {data
+                  .filter(
+                    (v) =>
+                      v.shop == bulkKnt && v.domestic == "6" && v.prc === ""
+                  )
+                  .map((v) => {
+                    return (
+                      (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                        <Row
+                          id={v.atclcode + "-" + v.scode}
+                          key={v.atclcode + "-" + v.scode}
+                          itm={v}
+                          showSub={true}
+                          fw={"700"}
+                        />
+                      )
+                    );
+                  })}
+              </TableBody>
+              <TableHead>
+                <TblTitle title={"КРИПТА"} bgcolor={colorset[1]} fw={"700"} />
+              </TableHead>
+              <TableBody>
+                {data
+                  .filter(
+                    (v) =>
+                      v.shop == bulkKnt && v.domestic == "8" && v.prc === ""
+                  )
+                  .map((v) => {
+                    return (
+                      (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                        <Row
+                          id={v.atclcode + "-" + v.scode}
+                          key={v.atclcode + "-" + v.scode}
+                          itm={v}
+                          showSub={true}
+                          fw={"700"}
+                        />
+                      )
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          {/* <TblTbl
             data={data.filter(
               (v) => v.shop === bulkKnt && v.domestic === "2" && v.prc === ""
             )}
             bulk={true}
-          />
+          /> */}
         </Stack>
-        <Paper elevation={6} sx={{ padding: "0.3rem" }}>
-          <Stack gap={0.5}>
-            <Box
-              bgcolor={colorset[0]}
-              // color={"info.contrastText"}
-              padding={"5px 10px"}
-            >
-              <Typography fontSize="0.9rem">РОЗДРІБ, купівля</Typography>
-            </Box>
-            <CurOther
-              dataset={data.filter(
-                (v) => v.shop === shop && v.domestic === "4" && v.prc === ""
-              )}
-            />
-          </Stack>
-        </Paper>
         <Box></Box>
-        {/* {error && (
-            <Alert severity="error">
-              <Typography> {`${error}`}</Typography>
-            </Alert>
-          )} */}
-        {footer && (
-          <Alert
-            icon={false}
-            severity="warning"
-            sx={{ justifyContent: "center" }}
-          >
-            <Typography variant="caption">{footer}</Typography>
-          </Alert>
-        )}
       </Stack>
     </Box>
   );
@@ -88,18 +248,23 @@ const CurAmntCell = (props) => {
   return (
     <TableCell align="center" {...other}>
       <Typography
-        fontSize={{ xs: "1rem", md: "3vmin" }}
+        fontSize={{ xs: "1rem", md: "2.7vmin" }}
         color={color}
         fontWeight={fontWeight}
       >
-        {Number(amnt) !== 0 ? Number(amnt).toPrecision(4) : ""}
+        {!isNaN(amnt)
+          ? Number(amnt) !== 0
+            ? Number(amnt).toPrecision(4)
+            : ""
+          : amnt}
+        {/* {Number(amnt) !== 0 ? Number(amnt).toPrecision(4) : ""} */}
       </Typography>
     </TableCell>
   );
 };
 
 const Row = (props) => {
-  const { itm, bulk } = props;
+  const { itm, showSub, fw } = props;
 
   return (
     <TableRow
@@ -122,35 +287,35 @@ const Row = (props) => {
             alt={`${itm.chid} flag.`}
             src={`./flag/${itm.atclcode}.svg`}
           />
-          {!bulk && (
-            <Typography variant="button" fontSize={{ xs: "1rem", md: "3vmin" }}>
+          <Box gap={2} display={"flex"} alignItems={"center"}>
+            <Typography
+              variant="button"
+              fontSize={{ xs: "1rem", md: "2.7vmin" }}
+            >
               {itm.chid}
             </Typography>
-          )}
-          {bulk && (
-            <Stack gap={2} direction={"row"} alignItems={"center"}>
+            {showSub && (
               <Typography
-                variant="button"
-                fontSize={{ xs: "1rem", md: "3vmin" }}
+                // variant="button"
+                fontSize={{ xs: "0.7rem", md: "1.8vmin" }}
               >
-                {itm.chid}
+                {itm.sname}
               </Typography>
-              {itm.sname}
-            </Stack>
-          )}
+            )}
+          </Box>
         </Stack>
       </TableCell>
       <CurAmntCell
         amnt={itm.bid}
         color={colorset[2]}
-        fontWeight={bulk ? "700" : "400"}
+        fontWeight={fw} //{bulk ? "700" : "400"}
         bgcolor={colorset[0]}
         width={"27%"}
       />
       <CurAmntCell
         amnt={itm.ask}
         color={colorset[2]}
-        fontWeight={bulk ? "700" : "400"}
+        fontWeight={fw} //{bulk ? "700" : "400"}
         bgcolor={colorset[0]}
         width={"27%"}
       />
@@ -158,49 +323,52 @@ const Row = (props) => {
   );
 };
 
-const TblHead = (props) => {
-  const { bulk } = props;
+const TblTitle = (props) => {
+  const { title, bgcolor, fw } = props;
   return (
-    <TableHead>
-      <TableRow>
-        <TableCell
-          align="center"
-          colSpan={3}
-          bgcolor={bulk ? colorset[1] : colorset[0]}
+    <TableRow>
+      <TableCell align="center" colSpan={3} bgcolor={bgcolor}>
+        <Typography
+          color={colorset[2]}
+          fontSize={{ xs: "1rem", md: "2.5vmin" }}
+          fontWeight={fw}
         >
-          <Typography color={colorset[2]} fontWeight={bulk ? "700" : "400"}>
-            {bulk ? "ГУРТ" : "РОЗДРІБ"}
-          </Typography>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell align="center" bgcolor="white" padding={"none"}>
-          <Typography color={grey[500]} fontSize="0.9rem">
-            назва
-          </Typography>
-        </TableCell>
-        <TableCell
-          align="center"
-          padding={"none"}
-          width={"18%"}
-          bgcolor={colorset[0]}
-        >
-          <Typography color={grey[500]} fontSize="0.9rem">
-            купівля
-          </Typography>
-        </TableCell>
-        <TableCell
-          align="center"
-          padding={"none"}
-          width={"18%"}
-          bgcolor={colorset[0]}
-        >
-          <Typography color={grey[500]} fontSize="0.9rem">
-            продаж
-          </Typography>
-        </TableCell>
-      </TableRow>
-    </TableHead>
+          {title}
+        </Typography>
+      </TableCell>
+    </TableRow>
+  );
+};
+
+const TblSubTitle = (props) => {
+  return (
+    <TableRow>
+      <TableCell align="center" bgcolor="white" padding={"none"}>
+        <Typography color={grey[500]} fontSize="0.9rem">
+          назва
+        </Typography>
+      </TableCell>
+      <TableCell
+        align="center"
+        padding={"none"}
+        width={"18%"}
+        bgcolor={colorset[0]}
+      >
+        <Typography color={grey[500]} fontSize="0.9rem">
+          купівля
+        </Typography>
+      </TableCell>
+      <TableCell
+        align="center"
+        padding={"none"}
+        width={"18%"}
+        bgcolor={colorset[0]}
+      >
+        <Typography color={grey[500]} fontSize="0.9rem">
+          продаж
+        </Typography>
+      </TableCell>
+    </TableRow>
   );
 };
 
@@ -209,11 +377,14 @@ const TblTbl = (props) => {
   return (
     <TableContainer component={Paper}>
       <Table size="small" aria-label="a dense table">
-        <TblHead bulk={bulk} />
+        <TableHead>
+          <TblTitle bulk={bulk} />
+          <TblSubTitle />
+        </TableHead>
         <TableBody>
           {data.map((v) => {
             return (
-              (Number(v.bid) !== 0 || Number(v.ask)) && (
+              (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
                 <Row
                   id={v.atclcode + "-" + v.scode}
                   key={v.atclcode + "-" + v.scode}
