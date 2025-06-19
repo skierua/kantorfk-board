@@ -184,10 +184,10 @@ export const BrdSocial = () => {
         padding: "10px 0px",
       }}
     >
-      <Ver1 />;
+      {/* <Ver1 />; */}
       <Box bgcolor={grey[50]}>
         <Stack direction={"row"} gap={3} justifyContent={"center"}>
-          <Typography textAlign={"center"}>Ми в соціальних мережах</Typography>
+          {/* <Typography textAlign={"center"}>Ми в соціальних мережах</Typography> */}
           <Box>
             <Stack direction={"row"} gap={0.5}>
               <CallIcon fontSize="small" />

@@ -22,7 +22,8 @@ const colorset = ["#f2f2f2", "#57ba98", grey[800]];
 export const BrdRate = (props) => {
   const { data, shop, ...other } = props;
   // console.log(
-  //   data.filter((v) => v.shop == bulkKnt && v.domestic == "2" && v.prc === "")
+  //   data
+  //   // data.filter((v) => v.shop == bulkKnt && v.domestic == "2" && v.prc === "")
   // );
   // const [mdata, setMdata] = useState([]);
   // const [odata, setOdata] = useState([]);
@@ -64,6 +65,10 @@ export const BrdRate = (props) => {
                       );
                     })}
                 </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer component={Paper}>
+              <Table size="small" aria-label="a dense table">
                 <TableHead>
                   <TblTitle
                     title={"ІНШІ ВАЛЮТИ, купівля"}
@@ -151,91 +156,121 @@ export const BrdRate = (props) => {
             </Paper>
             */}
           </Stack>
-          <TableContainer component={Paper}>
-            <Table size="small" aria-label="a dense table">
-              <TableHead>
-                <TblTitle title={"ГУРТ"} bgcolor={colorset[1]} fw={"700"} />
-                <TblSubTitle />
-              </TableHead>
-              <TableBody>
-                {data
-                  .filter(
-                    (v) =>
-                      v.shop == bulkKnt && v.domestic == "2" && v.prc === ""
-                  )
-                  .map((v) => {
-                    return (
-                      (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
-                        <Row
-                          id={v.atclcode + "-" + v.scode}
-                          key={v.atclcode + "-" + v.scode}
-                          itm={v}
-                          showSub={true}
-                          fw={"700"}
-                        />
-                      )
-                    );
-                  })}
-              </TableBody>
-              <TableHead>
-                <TblTitle
-                  title={"КОНВЕРТАЦІЯ"}
-                  bgcolor={colorset[1]}
-                  fw={"700"}
-                />
-              </TableHead>
-              <TableBody>
-                {data
-                  .filter(
-                    (v) =>
-                      v.shop == bulkKnt && v.domestic == "6" && v.prc === ""
-                  )
-                  .map((v) => {
-                    return (
-                      (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
-                        <Row
-                          id={v.atclcode + "-" + v.scode}
-                          key={v.atclcode + "-" + v.scode}
-                          itm={v}
-                          showSub={true}
-                          fw={"700"}
-                        />
-                      )
-                    );
-                  })}
-              </TableBody>
-              <TableHead>
-                <TblTitle title={"КРИПТА"} bgcolor={colorset[1]} fw={"700"} />
-              </TableHead>
-              <TableBody>
-                {data
-                  .filter(
-                    (v) =>
-                      v.shop == bulkKnt && v.domestic == "8" && v.prc === ""
-                  )
-                  .map((v) => {
-                    return (
-                      (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
-                        <Row
-                          id={v.atclcode + "-" + v.scode}
-                          key={v.atclcode + "-" + v.scode}
-                          itm={v}
-                          showSub={true}
-                          fw={"700"}
-                        />
-                      )
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Stack gap={2}>
+            <TableContainer component={Paper}>
+              <Table size="small" aria-label="a dense table">
+                <TableHead>
+                  <TblTitle title={"ГУРТ"} bgcolor={colorset[1]} fw={"700"} />
+                  <TblSubTitle />
+                </TableHead>
+                <TableBody>
+                  {data
+                    .filter(
+                      (v) =>
+                        v.shop == bulkKnt && v.domestic == "2" && v.prc === ""
+                    )
+                    .map((v) => {
+                      return (
+                        (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                          <Row
+                            id={v.atclcode + "-" + v.scode}
+                            key={v.atclcode + "-" + v.scode}
+                            itm={v}
+                            showSub={true}
+                            fw={"700"}
+                          />
+                        )
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer component={Paper}>
+              <Table size="small" aria-label="a dense table">
+                <TableHead>
+                  <TblTitle
+                    title={"КОНВЕРТАЦІЯ"}
+                    bgcolor={colorset[1]}
+                    fw={"700"}
+                  />
+                  <TblSubTitle />
+                </TableHead>
+                <TableBody>
+                  {data
+                    .filter(
+                      (v) =>
+                        v.shop == bulkKnt && v.domestic == "6" && v.prc === ""
+                    )
+                    .map((v) => {
+                      return (
+                        (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                          <Row
+                            id={v.atclcode + "-" + v.scode}
+                            key={v.atclcode + "-" + v.scode}
+                            itm={v}
+                            showSub={true}
+                            fw={"700"}
+                          />
+                        )
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
-          {/* <TblTbl
+            {data.filter(
+              (v) =>
+                v.shop == bulkKnt &&
+                v.domestic === "8" &&
+                v.prc === "" &&
+                v.bid !== "" &&
+                v.ask !== ""
+            ).length !== 0 && (
+              <TableContainer component={Paper}>
+                <Table size="small" aria-label="a dense table">
+                  <TableHead>
+                    <TblTitle
+                      title={"КРИПТА"}
+                      bgcolor={colorset[1]}
+                      fw={"700"}
+                    />
+                    <TblSubTitle />
+                  </TableHead>
+                  <TableBody>
+                    {data
+                      .filter(
+                        (v) =>
+                          v.shop == bulkKnt &&
+                          v.domestic === "8" &&
+                          v.prc === "" &&
+                          v.bid !== "" &&
+                          v.ask !== ""
+                      )
+                      .map((v) => {
+                        return (
+                          (Number(v.bid) !== 0 || Number(v.ask) !== 0) && (
+                            <Row
+                              id={v.atclcode + "-" + v.scode}
+                              key={v.atclcode + "-" + v.scode}
+                              itm={v}
+                              showSub={true}
+                              fw={"700"}
+                            />
+                          )
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+
+            {/* <TblTbl
             data={data.filter(
               (v) => v.shop === bulkKnt && v.domestic === "2" && v.prc === ""
             )}
             bulk={true}
           /> */}
+          </Stack>
         </Stack>
         <Box></Box>
       </Stack>
