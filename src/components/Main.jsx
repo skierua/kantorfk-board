@@ -8,14 +8,18 @@ import { BrdHeader } from "./BrdHeader";
 import { BrdRate } from "./BrdRate";
 import { BrdOffer } from "./BrdOffer";
 import { API_PATH } from "../path";
+import { getData, postData, pld } from "../driver";
 
 const interval = 9; // reload interval sec
 const bulkKnt = "BULK";
 
 export const Main = (props) => {
-  const { crntuser, ferr } = props;
+  const { crntuser, ferr, TOKEN, ...other } = props;
   const [rates, setRates] = useState([]);
   const [offers, setOffers] = useState([]);
+  const [error, setError] = useState(null);
+
+  let tmrUpd;
 
   const sortRates = (v) => {
     return v.sort((a, b) => {
@@ -73,34 +77,86 @@ export const Main = (props) => {
       });
   };
 
+  // useEffect(() => {
+  //   // load();
+  //   loadRate();
+  //   setTimeout(loadOffer, 1000);
+  //   const tmR = setInterval(loadRate, 1000 * interval); //
+  //   const tmO = setInterval(loadOffer, 1000 * interval + 500); //
+  //   // loadRate();
+  //   // setTimeout(loadOffer, 500);
+  //   // const evtSource = new EventSource("https://test.kantorfk.com/api/vb1/sse");
+  //   // const evtSource = new EventSource("/api/vb1/sse");
+  //   /*const evtSource = new EventSource(`${PATH_TO_SSE}`);
+  //   setTimeout(() => {
+  //     evtSource.addEventListener("offer_stream", (event) => {
+  //       setOffers(JSON.parse(event.data).rslt);
+  //     });
+  //     evtSource.addEventListener("rate_stream", (event) => {
+  //       setRates(JSON.parse(event.data).rslt);
+  //     });
+  //   }, 5000); */
+  //   return () => {
+  //     clearInterval(tmR);
+  //     clearInterval(tmO);
+  //     // evtSource.close();
+  //   };
+  // }, []);
+
+  const load = async () => {
+    // console.log(`#74h MAIN data loaded`);
+    await postData(
+      "/rates",
+      TOKEN,
+      { reqid: "sse2" },
+      (d) => setRates(sortRates(d)),
+      (b) => setError(b)
+    );
+
+    await getData(
+      "/offers",
+      "reqid=sse",
+      (d) => setOffers(d),
+      (b) => setError(b)
+    );
+  };
+
   useEffect(() => {
-    // load();
-    loadRate();
-    setTimeout(loadOffer, 1000);
-    const tmR = setInterval(loadRate, 1000 * interval); //
-    const tmO = setInterval(loadOffer, 1000 * interval + 500); //
-    // loadRate();
-    // setTimeout(loadOffer, 500);
-    // const evtSource = new EventSource("https://test.kantorfk.com/api/vb1/sse");
-    // const evtSource = new EventSource("/api/vb1/sse");
-    /*const evtSource = new EventSource(`${PATH_TO_SSE}`);
-    setTimeout(() => {
-      evtSource.addEventListener("offer_stream", (event) => {
-        setOffers(JSON.parse(event.data).rslt);
-      });
-      evtSource.addEventListener("rate_stream", (event) => {
-        setRates(JSON.parse(event.data).rslt);
-      });
-    }, 5000); */
+    // console.log(`#34hn useEffect RATES started`);
+    tmrUpd = setTimeout(async function loadData() {
+      // console.log(`#34hn render GETDATA`);
+      load();
+      tmrUpd = setTimeout(loadData, 1000 * interval); // (*)
+    }, 0);
     return () => {
-      clearInterval(tmR);
-      clearInterval(tmO);
-      // evtSource.close();
+      clearTimeout(tmrUpd);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onVisibility_changed = () => {
+      if (document.visibilityState === "visible") {
+        tmrUpd = setTimeout(async function loadData() {
+          // console.log(`#904u visibility GETDATA`);
+          load();
+          tmrUpd = setTimeout(loadData, 1000 * interval); // (*)
+        }, 0);
+        // console.log(`#e8y useEffect turns visibile `);
+      } else {
+        clearTimeout(tmrUpd);
+        // console.log(`#9wj useEffect turns HIDDEN `);
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility_changed);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility_changed);
     };
   }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} {...other}>
       <Stack width={{ xs: "100%" }} gap={1} alignItems={"center"}>
         <BrdHeader />
         <BrdRate

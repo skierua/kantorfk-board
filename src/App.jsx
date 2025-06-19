@@ -24,6 +24,7 @@ function App() {
     role: "",
     user: "",
   });
+  const [token, setToken] = useState("");
   // const [bgno, setBgno] = useState(Math.floor((Math.random() * 10) % 5));
   // const [bgtheme, setBgtheme] = useState("bg_winter");
 
@@ -70,6 +71,7 @@ function App() {
           .then((res) => res.json())
           .then((jresp) => {
             // console.log(jresp.token);
+            setToken(jresp.token);
             const [th, tp, ts] = jresp.token.split(".");
             // console.log(window.atob(tp));
             const pl = JSON.parse(window.atob(tp));
@@ -111,7 +113,7 @@ function App() {
         <Stack width={{ xs: "100%" }} gap={1} alignItems={"center"}>
           {crntuser.role === "" && <Sign />}
           {crntuser.role !== "" && (
-            <Main crntuser={crntuser} ferr={handleError} />
+            <Main crntuser={crntuser} TOKEN={token} ferr={handleError} />
           )}
         </Stack>
       </Container>
