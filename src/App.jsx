@@ -100,10 +100,11 @@ function App() {
       // component="img"
       style={{
         //   backgroundImage: `url(/img/${bgtheme}/bg${bgno}.jpg)`,
-        //   backgroundPosition: "center",
-        //   backgroundSize: "cover",
-        //   backgroundRepeat: "no-repeat",
-        backgroundColor: "sandybrown", //"gold", //"#646cffaa",
+        backgroundImage: `url(/img/bg0.jpg)`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        // backgroundColor: "sandybrown", //"gold", //"#646cffaa",
         height: "100%",
         //   // width: "100%",
       }}
