@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { AppBar, Box, Grid, Stack, Typography } from "@mui/material";
 import { grey, blue } from "@mui/material/colors";
 import HomeIcon from "@mui/icons-material/Home";
@@ -100,7 +100,7 @@ const Qr = (props) => {
     <Box
       component="img"
       alt={valt}
-      src={`./img/${vimg}`}
+      src={`${PATH_TO_SERVER}/img/${vimg}`}
       sx={{
         height: 40,
         width: 40,
@@ -125,7 +125,7 @@ const Qr2 = (props) => {
       <Box
         component="img"
         alt={valt}
-        src={`./img/kantorfk_qr_${vicon}.png`}
+        src={`${PATH_TO_SERVER}/img/kantorfk_qr_${vicon}.png`}
         sx={{
           height: 60,
           width: 60,
@@ -158,7 +158,7 @@ const Qr3 = (props) => {
         <Box
           component="img"
           alt={valt}
-          src={`./img/kantorfk_qr_${vicon}.png`}
+          src={`${PATH_TO_SERVER}/img/kantorfk_qr_${vicon}.png`}
           sx={{
             height: 60,
             width: 60,

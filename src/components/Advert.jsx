@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, Box, Grid, Stack, Typography } from "@mui/material";
-import { grey, blue } from "@mui/material/colors";
-import HomeIcon from "@mui/icons-material/Home";
+// import { grey, blue } from "@mui/material/colors";
+// import HomeIcon from "@mui/icons-material/Home";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import EuroIcon from "@mui/icons-material/Euro";
 import CurrencyPoundIcon from "@mui/icons-material/CurrencyPound";
