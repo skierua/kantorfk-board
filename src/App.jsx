@@ -12,7 +12,8 @@ import Snackbar from "@mui/material/Snackbar";
 import { Sign } from "./Sign";
 import { Main } from "./components/Main";
 import { BrdSocial } from "./components/BrdSocial";
-import { AUTH_PATH } from "./path";
+// import { AUTH_PATH } from "./path";
+import { PATH_TO_SERVER, PATH_TO_API, authFetch } from "./driver";
 import { subscribe, unsubscribe } from "./events";
 
 function App() {
@@ -59,15 +60,17 @@ function App() {
       // () => setRequery((prevRequery) => ++prevRequery)
       (resp) => {
         // console.log(resp);
-        fetch(AUTH_PATH, {
-          method: "post",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            // "Access-Control-Allow-Origin": "http://localhost:3000",
-          },
-          body: `data=${resp.detail}`,
-        })
+        // fetch(AUTH_PATH, {
+        //   // fetch(PATH_TO_SERVER + PATH_TO_API + "/auth", {
+        //   method: "post",
+        //   mode: "cors",
+        //   headers: {
+        //     "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        //     // "Access-Control-Allow-Origin": "http://localhost:3000",
+        //   },
+        //   body: `data=${resp.detail}`,
+        // })
+        authFetch(resp.detail)
           .then((res) => res.json())
           .then((jresp) => {
             // console.log(jresp.token);

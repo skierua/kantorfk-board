@@ -7,7 +7,7 @@ import { Advert } from "./Advert";
 import { BrdHeader } from "./BrdHeader";
 import { BrdRate } from "./BrdRate";
 import { BrdOffer } from "./BrdOffer";
-import { API_PATH } from "../path";
+// import { API_PATH } from "../path";
 import { getData, postData, pld } from "../driver";
 
 const interval = 9; // reload interval sec
@@ -25,56 +25,6 @@ export const Main = (props) => {
     return v.sort((a, b) => {
       return Number(a.sortorder) - Number(b.sortorder);
     });
-  };
-
-  const loadRate = () => {
-    // console.log(`#8y3 App/loadRate started`);
-    fetch(`${API_PATH}/rates?reqid=sse2`, {
-      method: "get",
-      mode: "cors",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((jresp) => {
-        // console.log(jresp);
-        if (jresp.status === 0) {
-          setRates(sortRates(jresp.rslt));
-        } else {
-          throw new Error(`Rates: ${jresp.str} (${jresp.note})`);
-        }
-        // setError(null);
-      })
-      .catch((err) => {
-        ferr(err.message);
-      });
-  };
-
-  const loadOffer = () => {
-    // console.log(`#12u App/loadOffer started`);
-    fetch(`${API_PATH}/offers?reqid=sse`, {
-      method: "get",
-      mode: "cors",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((jresp) => {
-        if (jresp.status === 0) {
-          setOffers(jresp.rslt);
-        } else {
-          throw new Error(`Offers: ${jresp.str} (${jresp.note})`);
-        }
-        // setError(null);
-      })
-      .catch((err) => {
-        ferr(err.message);
-        // let v = verror;
-        // v.push(err.message);
-        // setVerror(v);
-      });
   };
 
   // useEffect(() => {
@@ -159,12 +109,7 @@ export const Main = (props) => {
     <Box sx={{ display: "flex" }} {...other}>
       <Stack width={{ xs: "100%" }} gap={1} alignItems={"center"}>
         <BrdHeader />
-        <BrdRate
-          data={rates}
-          // data={rates.filter((v) => v.shop == crntuser.term)}
-          shop={crntuser.term}
-          // delay="150"
-        />
+        <BrdRate data={rates} shop={crntuser.term} />
         <BrdOffer data={offers.filter((v) => v.shop == crntuser.term)} />
         <Advert />
       </Stack>

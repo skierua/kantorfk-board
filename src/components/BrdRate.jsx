@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+// import React, { useEffect, useState, useRef } from "react";
 import { Alert, Avatar, Box, Grid, Stack, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { grey } from "@mui/material/colors";
 // import { Icon_Flag_BG, Icon_Flag_US } from "material-ui-country-flags";
+import { PATH_TO_SERVER } from "../driver";
 
 const bulkKnt = "BULK";
 
@@ -320,7 +321,7 @@ const Row = (props) => {
               borderRadius: 1,
             }}
             alt={`${itm.chid} flag.`}
-            src={`./flag/${itm.atclcode}.svg`}
+            src={`${PATH_TO_SERVER}/flag/${itm.atclcode}.svg`}
           />
           <Box gap={2} display={"flex"} alignItems={"center"}>
             <Typography

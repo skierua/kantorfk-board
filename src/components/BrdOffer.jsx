@@ -1,5 +1,5 @@
-import React from "react";
-import { Alert, Box, Stack } from "@mui/material";
+// import React from "react";
+import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 
@@ -91,7 +91,7 @@ const Offer = (props) => {
             borderRadius: 1,
           }}
           alt="The flag."
-          src={`./flag/${v.curid}.svg`}
+          src={`${PATH_TO_SERVER}/flag/${v.curid}.svg`}
         />
         <Box width="65%">
           <Stack width="100%" direction="row" justifyContent="space-between">

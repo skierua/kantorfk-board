@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Stack, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import { PATH_TO_SERVER } from "../driver";
 
 export const BrdHeader = () => {
   // const [stick, setStick] = useState(false);
@@ -22,7 +23,7 @@ export const BrdHeader = () => {
               // maxWidth: { xs: 160, md: 240 },
             }}
             alt="Logo."
-            src="./img/logo-kfk.png"
+            src={`${PATH_TO_SERVER}/img/logo-kfk.png`}
           />
 
           <Box
@@ -38,7 +39,7 @@ export const BrdHeader = () => {
               <Box
                 component="img"
                 alt={"web home social"}
-                src={`./img/kantorfk_qr_home.png`}
+                src={`${PATH_TO_SERVER}/img/kantorfk_qr_home.png`}
                 sx={{
                   height: 60,
                   width: 60,
