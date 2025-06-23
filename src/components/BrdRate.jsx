@@ -105,7 +105,7 @@ export const BrdRate = (props) => {
                                   alignItems={"center"}
                                 >
                                   <Avatar
-                                    src={`./flag/${v.atclcode}.svg`}
+                                    src={`${PATH_TO_SERVER}/flag/${v.atclcode}.svg`}
                                     sx={{
                                       width: { xs: "18px", sm: "3vmin" },
                                       height: { xs: "18px", sm: "3vmin" },

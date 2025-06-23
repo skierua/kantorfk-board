@@ -1,6 +1,6 @@
 // for local testings
 // const PATH_TO_SSE = "http://localhost/api/v4/sse"; // for local testings
-// const PATH_TO_SERVER = "http://localhost/api/v4"; // for local testings
+// const PATH_TO_SERVER = "http://localhost"; // for local testings
 
 // for deployment
 // const PATH_TO_SERVER = "/api/v3"; // for deployment
