@@ -103,7 +103,7 @@ function App() {
       // component="img"
       style={{
         //   backgroundImage: `url(/img/${bgtheme}/bg${bgno}.jpg)`,
-        backgroundImage: `url(/img/bg0.jpg)`,
+        backgroundImage: `url(${PATH_TO_SERVER}/img/bg0.jpg)`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
