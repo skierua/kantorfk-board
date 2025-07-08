@@ -68,12 +68,14 @@ const postData = async (path, token, jdata, callback, error) => {
     .then((resp) => resp.json())
     .then((jresp) => {
       // console.log(path + ": " + JSON.stringify(jresp));
-      error(null);
-      callback(jresp.rslt);
+      callback(null, jresp.rslt);
+      // error(null);
+      // callback(jresp.rslt);
     })
     .catch((err) => {
-      console.log("EE:" + path + "/ " + err + " data=" + JSON.stringify(jdata));
-      error(err.message);
+      // console.log("EE:" + path + "/ " + err + " data=" + JSON.stringify(jdata));
+      callback(err.message, null);
+      // error(err.message);
     });
 };
 
@@ -104,7 +106,7 @@ const getFetch = async (path, jdata) => {
  * @param {*} callback for success
  * @param {*} error callback fo error
  */
-const getData = async (path, query, callback, error) => {
+const getData = async (path, query, callback) => {
   if (query !== undefined && query !== "") {
     query = "?" + query;
   }
@@ -117,11 +119,13 @@ const getData = async (path, query, callback, error) => {
   })
     .then((resp) => resp.json())
     .then((jresp) => {
-      callback(jresp.rslt);
-      error(null);
+      callback(null, jresp.rslt);
+      // callback(jresp.rslt);
+      // error(null);
     })
     .catch((err) => {
-      error(err.message);
+      callback(err.message, null);
+      // error(err.message);
     });
 };
 
