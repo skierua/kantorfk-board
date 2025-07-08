@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
-import { Advert } from "./Advert";
 import { BrdHeader } from "./BrdHeader";
 import { BrdRate } from "./BrdRate";
 import { BrdOffer } from "./BrdOffer";
 // import { API_PATH } from "../path";
-import { getData, postData, pld } from "../driver";
+import { getData, postData } from "../driver";
 
 const interval = 9; // reload interval sec
 const bulkKnt = "BULK";
@@ -55,27 +52,30 @@ export const Main = (props) => {
 
   const load = async () => {
     // console.log(`#74h MAIN data loaded`);
-    await postData(
-      "/rates",
-      TOKEN,
-      { reqid: "sse2" },
-      (d) => setRates(sortRates(d)),
-      (b) => setError(b)
-    );
+    await postData("/rates", TOKEN, { reqid: "sse2" }, (e, v) => {
+      if (e === null) {
+        setRates(sortRates(v));
+      } else {
+        // console.error("Main " + e);
+        ferr("Main " + e);
+      }
+    });
 
-    await getData(
-      "/offers",
-      "reqid=sse",
-      (d) => setOffers(d),
-      (b) => setError(b)
-    );
+    await getData("/offers", "reqid=sse", (e, v) => {
+      if (e === null) {
+        setOffers(v);
+      } else {
+        // console.error("Main " + e);
+        ferr("Main " + e);
+      }
+    });
   };
 
   useEffect(() => {
     // console.log(`#34hn useEffect RATES started`);
     tmrUpd = setTimeout(async function loadData() {
       // console.log(`#34hn render GETDATA`);
-      load();
+      await load();
       tmrUpd = setTimeout(loadData, 1000 * interval); // (*)
     }, 0);
     return () => {
@@ -111,7 +111,7 @@ export const Main = (props) => {
         <BrdHeader />
         <BrdRate data={rates} shop={crntuser.term} />
         <BrdOffer data={offers.filter((v) => v.shop == crntuser.term)} />
-        <Advert />
+        {/* <Advert /> */}
       </Stack>
     </Box>
   );

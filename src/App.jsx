@@ -11,9 +11,9 @@ import Snackbar from "@mui/material/Snackbar";
 
 import { Sign } from "./Sign";
 import { Main } from "./components/Main";
+import { BrdChart } from "./components/BrdChart";
 import { BrdSocial } from "./components/BrdSocial";
-// import { AUTH_PATH } from "./path";
-import { PATH_TO_SERVER, PATH_TO_API, authFetch } from "./driver";
+import { PATH_TO_SERVER, authFetch, getData } from "./driver";
 import { subscribe, unsubscribe } from "./events";
 
 function App() {
@@ -26,6 +26,9 @@ function App() {
     user: "",
   });
   const [token, setToken] = useState("");
+  const [usdAvrg, setUsdAvrg] = useState([]);
+  const [eurAvrg, setEurAvrg] = useState([]);
+  const [plnAvrg, setPlnAvrg] = useState([]);
   // const [bgno, setBgno] = useState(Math.floor((Math.random() * 10) % 5));
   // const [bgtheme, setBgtheme] = useState("bg_winter");
 
@@ -98,6 +101,58 @@ function App() {
     };
   }, []);
 
+  const transformForChart = (v) => {
+    // console.log(v);
+    let ret = [];
+    for (let i = 0; i < v.length; ++i) {
+      ret.push({
+        x: v[i].period, //.slice(-2),
+        // idx: i,
+        period: v[i].period.slice(-4).replace("-", ""),
+        bid: Number(v[i].beq) / Number(v[i].bamnt), //.toFixed(2)
+        ask: Number(v[i].aeq) / Number(v[i].aamnt), //.toFixed(2)
+        avrg:
+          (Number(v[i].aeq) / Number(v[i].aamnt) +
+            Number(v[i].beq) / Number(v[i].bamnt)) /
+          2, //.toFixed(2)
+      });
+    }
+    return ret;
+  };
+
+  useEffect(() => {
+    getData("/archive", `reqid=ratesAvrg&cur=840`, (e, v) => {
+      if (e === null) {
+        setUsdAvrg(transformForChart(v));
+      } else {
+        handleError(e);
+      }
+    });
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    getData("/archive", `reqid=ratesAvrg&cur=978`, (e, v) => {
+      if (e === null) {
+        setEurAvrg(transformForChart(v));
+      } else {
+        handleError(e);
+      }
+    });
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    getData("/archive", `reqid=ratesAvrg&cur=985`, (e, v) => {
+      if (e === null) {
+        setPlnAvrg(transformForChart(v));
+      } else {
+        handleError(e);
+      }
+    });
+    return () => {};
+  }, []);
+
   return (
     <div
       // component="img"
@@ -113,13 +168,21 @@ function App() {
       }}
     >
       <CssBaseline />
-      <Container>
-        <Stack width={{ xs: "100%" }} gap={1} alignItems={"center"}>
-          {crntuser.role === "" && <Sign />}
-          {crntuser.role !== "" && (
+      <Container sx={{ minHeight: "100%" }}>
+        {/* <Stack width={{ xs: "100%" }} gap={1} alignItems={"center"}> */}
+        {crntuser.role === "" && <Sign />}
+        {crntuser.role !== "" && (
+          // <React.Fragment>
+          // <Box>
+          <Stack justifyContent={"space-between"} height={"97vh"}>
             <Main crntuser={crntuser} TOKEN={token} ferr={handleError} />
-          )}
-        </Stack>
+            <BrdChart usdAvrg={usdAvrg} eurAvrg={eurAvrg} plnAvrg={plnAvrg} />
+            {/* <Box height={30}></Box> */}
+          </Stack>
+          // </Box>
+          // </React.Fragment>
+        )}
+        {/* </Stack> */}
       </Container>
       <BrdSocial />
       <Box sx={{ display: "flex" }}>
