@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Stack, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import { PATH_TO_SERVER } from "../driver";
 
 export const BrdHeader = () => {
@@ -25,28 +26,50 @@ export const BrdHeader = () => {
             alt="Logo."
             src={`${PATH_TO_SERVER}/img/logo-kfk.png`}
           />
-
-          <Box
-            sx={{
-              bgcolor: "white",
-              padding: "3px",
-              border: "1px solid lightgrey",
-              borderRadius: "10px",
-            }}
-          >
-            <Stack alignItems={"center"}>
-              <HomeIcon fontSize={"small"} />
-              <Box
-                component="img"
-                alt={"web home social"}
-                src={`${PATH_TO_SERVER}/img/kantorfk_qr_home.png`}
-                sx={{
-                  height: 60,
-                  width: 60,
-                }}
-              />
-            </Stack>
-          </Box>
+          <Stack direction={"row"} gap={2} justifyContent={"center"}>
+            <Box
+              sx={{
+                bgcolor: "white",
+                padding: "3px",
+                border: "1px solid lightgrey",
+                borderRadius: "10px",
+              }}
+            >
+              <Stack alignItems={"center"}>
+                <HomeIcon fontSize={"small"} />
+                <Box
+                  component="img"
+                  alt={"web home social"}
+                  src={`${PATH_TO_SERVER}/img/kantorfk_qr_home.png`}
+                  sx={{
+                    height: 60,
+                    width: 60,
+                  }}
+                />
+              </Stack>
+            </Box>
+            <Box
+              sx={{
+                bgcolor: "white",
+                padding: "3px",
+                border: "1px solid lightgrey",
+                borderRadius: "10px",
+              }}
+            >
+              <Stack alignItems={"center"}>
+                <TelegramIcon fontSize={"small"} />
+                <Box
+                  component="img"
+                  alt={"web tg social"}
+                  src={`${PATH_TO_SERVER}/img/kantorfk_qr_tg.png`}
+                  sx={{
+                    height: 60,
+                    width: 60,
+                  }}
+                />
+              </Stack>
+            </Box>
+          </Stack>
         </Toolbar>
       </Container>
     </Box>

@@ -2,6 +2,7 @@
 import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import { PATH_TO_SERVER } from "../driver";
 
 /**
  *
