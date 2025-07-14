@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { grey } from "@mui/material/colors";
 // import { Icon_Flag_BG, Icon_Flag_US } from "material-ui-country-flags";
-import { PATH_TO_SERVER } from "../driver";
+// import { PATH_TO_SERVER } from "../driver";
 
 const bulkKnt = "BULK";
 
@@ -105,7 +105,7 @@ export const BrdRate = (props) => {
                                   alignItems={"center"}
                                 >
                                   <Avatar
-                                    src={`${PATH_TO_SERVER}/flag/${v.atclcode}.svg`}
+                                    src={`/flag/${v.atclcode}.svg`}
                                     sx={{
                                       width: { xs: "18px", sm: "3vmin" },
                                       height: { xs: "18px", sm: "3vmin" },
@@ -321,7 +321,7 @@ const Row = (props) => {
               borderRadius: 1,
             }}
             alt={`${itm.chid} flag.`}
-            src={`${PATH_TO_SERVER}/flag/${itm.atclcode}.svg`}
+            src={`/flag/${itm.atclcode}.svg`}
           />
           <Box gap={2} display={"flex"} alignItems={"center"}>
             <Typography

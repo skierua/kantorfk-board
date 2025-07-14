@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Stack, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import { PATH_TO_SERVER } from "../driver";
+// import { PATH_TO_SERVER } from "../driver";
 
 export const BrdHeader = () => {
   // const [stick, setStick] = useState(false);
@@ -24,7 +24,7 @@ export const BrdHeader = () => {
               // maxWidth: { xs: 160, md: 240 },
             }}
             alt="Logo."
-            src={`${PATH_TO_SERVER}/img/logo-kfk.png`}
+            src={`/img/logo-kfk.png`}
           />
           <Stack direction={"row"} gap={2} justifyContent={"center"}>
             <Box
@@ -40,7 +40,7 @@ export const BrdHeader = () => {
                 <Box
                   component="img"
                   alt={"web home social"}
-                  src={`${PATH_TO_SERVER}/img/kantorfk_qr_home.png`}
+                  src={`/img/kantorfk_qr_home.png`}
                   sx={{
                     height: 60,
                     width: 60,
@@ -61,7 +61,7 @@ export const BrdHeader = () => {
                 <Box
                   component="img"
                   alt={"web tg social"}
-                  src={`${PATH_TO_SERVER}/img/kantorfk_qr_tg.png`}
+                  src={`/img/kantorfk_qr_tg.png`}
                   sx={{
                     height: 60,
                     width: 60,
