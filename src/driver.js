@@ -1,13 +1,8 @@
-// for local testings
-// const PATH_TO_SSE = "http://localhost/api/v4/sse"; // for local testings
 // const PATH_TO_SERVER = "http://localhost"; // for local testings
 
-// for deployment
-// const PATH_TO_SERVER = "/api/v3"; // for deployment
-// const PATH_TO_SSE = "/v3/sse"; // for deployment
-const PATH_TO_SERVER = "https://kantorfk.com"; // for deployment
-const PATH_TO_API = "/api/v4"; // for deployment
-const PATH_TO_SSE = "/api/v4/sse"; // for deployment
+const PATH_TO_SERVER = import.meta.env.VITE_API_URL; // for deployment
+const PATH_TO_API = import.meta.env.VITE_API_VER;
+// const PATH_TO_SSE = `${PATH_TO_SERVER}/sse`; // for deployment
 
 /**
  * payload
@@ -27,35 +22,17 @@ function pld(t) {
  * @param {*} path
  * @param {*} token
  * @param {*} jdata
- * @returns
- */
-const postFetch = async (path, token, jdata) => {
-  const resp = fetch(
-    `${PATH_TO_SERVER}${PATH_TO_API}${path}?api_token=${token}`,
-    {
-      method: "post",
-      mode: "cors",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-      },
-      body: "data=" + JSON.stringify(jdata),
-      // body: `key=${MN_SID}&usr=${CRNTUSER.name}&query=${vquery}`,
-    }
-  );
-  return resp;
-};
-
-/**
- *
- * @param {*} path
- * @param {*} token
- * @param {*} jdata
  * @param {*} callback for success
  * @param {*} error callback fo error
  */
-const postData = async (path, token, jdata, callback, error) => {
+const postData = async (path, token, jdata, callback) => {
   // console.log("postData started" + JSON.stringify(data));
   // return;
+  if (PATH_TO_SERVER === undefined || PATH_TO_API === undefined) {
+    console.log("URL or API is not defined in environment variables.");
+    callback("URL or API is not defined in environment variables.", null);
+    return;
+  }
   fetch(`${PATH_TO_SERVER}${PATH_TO_API}${path}?api_token=${token}`, {
     method: "post",
     mode: "cors",
@@ -82,31 +59,16 @@ const postData = async (path, token, jdata, callback, error) => {
 /**
  *
  * @param {string} path
- * @param {string} jdata
- * @returns JSON
- */
-const getFetch = async (path, jdata) => {
-  if (jdata !== undefined && jdata !== "") {
-    jdata = "?" + jdata;
-  }
-  const resp = fetch(`${PATH_TO_SERVER}${PATH_TO_API}${path}${jdata}`, {
-    method: "get",
-    mode: "cors",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    },
-  });
-  return resp;
-};
-
-/**
- *
- * @param {string} path
  * @param {string} query
  * @param {*} callback for success
  * @param {*} error callback fo error
  */
 const getData = async (path, query, callback) => {
+  if (PATH_TO_SERVER === undefined || PATH_TO_API === undefined) {
+    console.log("URL or API is not defined in environment variables.");
+    callback("URL or API is not defined in environment variables.", null);
+    return;
+  }
   if (query !== undefined && query !== "") {
     query = "?" + query;
   }
@@ -160,15 +122,4 @@ function parse(raw) {
   }
 }
 
-export {
-  PATH_TO_SERVER,
-  PATH_TO_API,
-  PATH_TO_SSE,
-  pld,
-  postFetch,
-  getFetch,
-  postData,
-  getData,
-  authFetch,
-  parse,
-};
+export { postData, getData, authFetch, parse };

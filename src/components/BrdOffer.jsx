@@ -2,7 +2,7 @@
 import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { PATH_TO_SERVER } from "../driver";
+// import { PATH_TO_SERVER } from "../driver";
 
 /**
  *
@@ -92,7 +92,7 @@ const Offer = (props) => {
             borderRadius: 1,
           }}
           alt="The flag."
-          src={`${PATH_TO_SERVER}/flag/${v.curid}.svg`}
+          src={`/flag/${v.curid}.svg`}
         />
         <Box width="65%">
           <Stack width="100%" direction="row" justifyContent="space-between">

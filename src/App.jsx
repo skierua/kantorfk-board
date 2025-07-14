@@ -13,7 +13,7 @@ import { Sign } from "./Sign";
 import { Main } from "./components/Main";
 import { BrdChart } from "./components/BrdChart";
 import { BrdSocial } from "./components/BrdSocial";
-import { PATH_TO_SERVER, authFetch, getData } from "./driver";
+import { authFetch, getData } from "./driver";
 import { subscribe, unsubscribe } from "./events";
 
 function App() {
@@ -158,7 +158,7 @@ function App() {
       // component="img"
       style={{
         //   backgroundImage: `url(/img/${bgtheme}/bg${bgno}.jpg)`,
-        backgroundImage: `url(${PATH_TO_SERVER}/img/bg0.jpg)`,
+        backgroundImage: `url(/img/bg0.jpg)`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
